@@ -16,6 +16,7 @@ import { useGlobalShortcuts } from '../../hooks/useGlobalShortcuts.js'
 import { ReminderScheduler } from '../../services/ReminderScheduler.jsx'
 import { UpdatePrompt } from '../../pwa/UpdatePrompt.jsx'
 import { ConnectivityNotice } from '../../pwa/ConnectivityNotice.jsx'
+import { RouteAnnouncer } from './RouteAnnouncer.jsx'
 import { StorageNotice } from './StorageNotice.jsx'
 
 export function AppShell() {
@@ -29,6 +30,12 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-dvh w-full">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-ink focus:ring-2 focus:ring-primary"
+      >
+        Skip to content
+      </a>
       {isDesktop ? (
         <aside className={cn('sticky top-0 h-dvh shrink-0 border-r border-line transition-[width] duration-base', sidebarCollapsed ? 'w-14' : 'w-60 xl:w-64')}>
           <Sidebar collapsed={sidebarCollapsed} />
@@ -37,7 +44,7 @@ export function AppShell() {
       <div className="flex-1 min-w-0 flex flex-col">
         {!focusRoute ? <TopBar onOpenMenu={() => setMenuOpen(true)} /> : null}
         <StorageNotice />
-        <main id="main" className={cn('flex-1 min-w-0 flex flex-col', !isDesktop && !focusRoute && 'pb-20')}>
+        <main id="main" className={cn('flex-1 min-w-0 flex flex-col outline-none', !isDesktop && !focusRoute && 'pb-20')}>
           <Suspense fallback={<LoadingState className="max-w-3xl mx-auto w-full pt-6" />}>
             <Outlet />
           </Suspense>
@@ -56,6 +63,7 @@ export function AppShell() {
       <ReminderScheduler />
       <UpdatePrompt />
       <ConnectivityNotice />
+      <RouteAnnouncer />
     </div>
   )
 }
