@@ -1,0 +1,40 @@
+export const pwaOptions = {
+  registerType: 'prompt',
+  injectRegister: false,
+  includeAssets: ['icons/*.svg', 'icons/*.png', 'offline.html'],
+  manifest: {
+    id: '/',
+    name: 'HarshTodo',
+    short_name: 'HarshTodo',
+    description: 'A local-first task manager with calendar, recurrence, focus mode and offline support.',
+    start_url: '/',
+    scope: '/',
+    display: 'standalone',
+    display_override: ['window-controls-overlay', 'standalone'],
+    orientation: 'any',
+    background_color: '#F8F7F4',
+    theme_color: '#F8F7F4',
+    lang: 'en',
+    dir: 'ltr',
+    categories: ['productivity', 'utilities'],
+    icons: [
+      { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { src: '/icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+    ],
+    shortcuts: [
+      { name: 'Today', short_name: 'Today', url: '/today', description: 'Open tasks due today' },
+      { name: 'Add task', short_name: 'Add', url: '/inbox?new=1', description: 'Create a new task' },
+      { name: 'Compact view', short_name: 'Compact', url: '/widget', description: 'Open the compact task view' },
+    ],
+  },
+  strategies: 'injectManifest',
+  srcDir: 'src/pwa',
+  filename: 'sw.js',
+  injectManifest: {
+    globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+  },
+  devOptions: {
+    enabled: false,
+  },
+}
