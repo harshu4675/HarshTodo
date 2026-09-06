@@ -1,27 +1,37 @@
 {
   "name": "harshtodo",
   "version": "1.0.0",
-  "description": "Local-first premium task management progressive web app",
+  "description": "Local-first task manager PWA with calendar, recurrence, reminders, focus mode and full offline support",
   "scripts": {
-    "test": "vitest run",
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
     "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/harshu4675/HarshTodo.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "todo",
+    "tasks",
+    "pwa",
+    "offline",
+    "indexeddb",
+    "react",
+    "tailwind",
+    "calendar",
+    "local-first"
+  ],
+  "author": "Harsh",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/harshu4675/HarshTodo/issues"
   },
   "homepage": "https://github.com/harshu4675/HarshTodo#readme",
   "type": "module",
-  "private": "true",
+  "private": true,
   "dependencies": {
     "date-fns": "^4.4.0",
     "idb": "^8.0.3",
@@ -45,5 +55,8 @@
     "workbox-precaching": "^7.4.1",
     "workbox-routing": "^7.4.1",
     "workbox-strategies": "^7.4.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
