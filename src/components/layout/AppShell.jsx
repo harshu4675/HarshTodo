@@ -15,6 +15,7 @@ import { ShortcutsDialog } from './ShortcutsDialog.jsx'
 import { useGlobalShortcuts } from '../../hooks/useGlobalShortcuts.js'
 import { ReminderScheduler } from '../../services/ReminderScheduler.jsx'
 import { UpdatePrompt } from '../../pwa/UpdatePrompt.jsx'
+import { ConnectivityNotice } from '../../pwa/ConnectivityNotice.jsx'
 import { StorageNotice } from './StorageNotice.jsx'
 
 export function AppShell() {
@@ -54,6 +55,7 @@ export function AppShell() {
       <ShortcutsDialog />
       <ReminderScheduler />
       <UpdatePrompt />
+      <ConnectivityNotice />
     </div>
   )
 }

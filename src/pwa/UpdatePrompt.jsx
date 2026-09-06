@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useServiceWorker } from './useServiceWorker.js'
+import { applyUpdate } from './registerServiceWorker.js'
 import { useToast } from '../components/ui/Toast.jsx'
 
 export function UpdatePrompt() {
-  const { needRefresh, offlineReady, error, update } = useServiceWorker()
+  const { needRefresh, offlineReady, error } = useServiceWorker()
   const toast = useToast()
   const [announced, setAnnounced] = useState({ refresh: false, offline: false, error: false })
 
@@ -13,10 +14,16 @@ export function UpdatePrompt() {
       toast.info('A new version is available', {
         description: 'Reload to update. Your tasks are safe.',
         duration: 0,
-        action: { label: 'Reload', onClick: () => update?.(true) },
+        action: {
+          label: 'Reload',
+          onClick: async () => {
+            const result = await applyUpdate()
+            if (!result.ok) toast.error('Update failed', { description: `${result.reason} Try closing every HarshTodo tab and reopening.` })
+          },
+        },
       })
     }
-  }, [needRefresh, announced.refresh, toast, update])
+  }, [needRefresh, announced.refresh, toast])
 
   useEffect(() => {
     if (offlineReady && !announced.offline) {

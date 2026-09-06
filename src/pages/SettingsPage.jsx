@@ -13,6 +13,7 @@ import { notificationSupport, requestNotificationPermission, showNotification } 
 import { REMINDER_OFFSETS } from '../constants/task.js'
 import { useCanInstall } from '../pwa/useCanInstall.js'
 import { promptInstall, isStandalone, installPlatformHint } from '../pwa/installPrompt.js'
+import { checkForUpdates, applyUpdate } from '../pwa/registerServiceWorker.js'
 import { useServiceWorker } from '../pwa/useServiceWorker.js'
 
 function formatBytes(bytes) {
@@ -213,8 +214,30 @@ export default function SettingsPage() {
                 </p>
               </div>
               {sw.needRefresh ? (
-                <Button size="sm" variant="primary" icon="refresh" onClick={() => sw.update?.(true)}>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  icon="refresh"
+                  onClick={async () => {
+                    const result = await applyUpdate()
+                    if (!result.ok) toast.error('Update failed', { description: result.reason })
+                  }}
+                >
                   Update now
+                </Button>
+              ) : sw.registration ? (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  icon="refresh"
+                  loading={sw.checking}
+                  onClick={async () => {
+                    const result = await checkForUpdates()
+                    if (!result.ok) toast.warning('Could not check for updates', { description: result.reason })
+                    else if (!result.needRefresh) toast.info('You are on the latest version')
+                  }}
+                >
+                  Check for updates
                 </Button>
               ) : null}
             </div>
